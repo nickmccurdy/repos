@@ -1,6 +1,6 @@
 # Findrepos
 
-TODO: Write a gem description
+A tool for finding git repositories locally.
 
 ## Installation
 
