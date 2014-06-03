@@ -21,13 +21,17 @@ describe Findrepos do
     FileUtils.rm_r 'repos'
   end
 
-  it 'has a version number' do
-    expect(Findrepos::VERSION).not_to be nil
+  describe '.VERSION' do
+    it 'exists' do
+      expect(Findrepos::VERSION).not_to be nil
+    end
   end
 
-  it 'lists all Git repositories in the current directory' do
-    Dir.chdir 'repos' do
-      expect(Findrepos.list).to eq ['a_repo']
+  describe '.list' do
+    it 'lists all Git repositories in the current directory' do
+      Dir.chdir 'repos' do
+        expect(Findrepos.list).to eq ['a_repo']
+      end
     end
   end
 end
