@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Nicolas McCurdy']
   spec.email         = ['thenickperson@gmail.com']
   spec.summary       = 'A tool for finding git repositories locally.'
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/nicolasmccurdy/findrepos'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
