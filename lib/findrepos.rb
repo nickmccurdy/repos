@@ -7,4 +7,6 @@ class Findrepos < Thor
   def list
     puts Dir.glob('*/.git').map { |dir| Pathname.new(dir).dirname }
   end
+
+  default_command :list
 end
