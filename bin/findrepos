@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'findrepos'
-puts Findrepos.list
+Findrepos.start ARGV
