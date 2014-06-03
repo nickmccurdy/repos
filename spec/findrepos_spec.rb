@@ -27,7 +27,7 @@ describe Findrepos do
 
   it 'lists all Git repositories in the current directory' do
     Dir.chdir 'repos' do
-      expect(Findrepos.list).to eq ['a_repo', 'repo_inside/another_repo']
+      expect(Findrepos.list).to eq ['a_repo']
     end
   end
 end
