@@ -1,5 +1,5 @@
-require "thor"
+require 'thor'
 
 class Findrepos < Thor
-  VERSION = "0.0.1"
+  VERSION = '0.0.1'
 end
