@@ -8,8 +8,6 @@ module Findrepos
   end
 
   def self.clean?(repo)
-    is_clean = nil
-    Dir.chdir(repo) { is_clean = system 'git diff-index --quiet HEAD' }
-    is_clean
+    Dir.chdir(repo) { system 'git diff-index --quiet HEAD' }
   end
 end
