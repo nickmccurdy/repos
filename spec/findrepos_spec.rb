@@ -83,18 +83,14 @@ describe Findrepos do
 
     context 'without recursion' do
       it 'lists all Git repositories in the current directory' do
-        Dir.chdir 'repos' do
-          expect(Findrepos.list).to eq ['a_repo']
-        end
+        expect(Findrepos.list 'repos').to eq ['repos/a_repo']
       end
     end
 
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        Dir.chdir 'repos' do
-          expect(Findrepos.list recursive: true).to contain_exactly('a_repo', 'repo_inside/another_repo')
-        end
+        expect(Findrepos.list('repos', recursive: true)).to contain_exactly('repos/a_repo', 'repos/repo_inside/another_repo')
       end
     end
   end

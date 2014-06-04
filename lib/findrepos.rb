@@ -2,9 +2,9 @@ require 'findrepos/version'
 require 'findrepos/cli'
 
 module Findrepos
-  def self.list(recursive: false)
+  def self.list(dir, recursive: false)
     pattern = recursive ? '**/.git' : '*/.git'
-    Dir.glob(pattern).map { |dir| Pathname.new(dir).dirname.to_s }
+    Dir.glob("#{dir}/#{pattern}").map { |dir| Pathname.new(dir).dirname.to_s }
   end
 
   def self.clean?(repo)
