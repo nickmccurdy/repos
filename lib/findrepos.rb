@@ -8,6 +8,10 @@ module Findrepos
   end
 
   def self.clean?(repo)
-    Dir.chdir(repo) { system 'git diff-index --quiet HEAD' }
+    Dir.chdir(repo) do
+      empty_diff = system('git diff-index --quiet HEAD')
+      untracked = `git ls-files --other --directory --exclude-standard` != ''
+      empty_diff && !untracked
+    end
   end
 end
