@@ -14,7 +14,7 @@ describe Findrepos do
         `git init`
         FileUtils.touch 'file'
         `git add file`
-        `git commit -m "Initial commit." --author "Example <example@example.com>`
+        `git commit -m "Initial commit." --author "Example <example@example.com>"`
       end
     end
 
