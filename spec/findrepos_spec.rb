@@ -1,26 +1,6 @@
 require 'spec_helper'
 
 describe Findrepos do
-  before :context do
-    Dir.mkdir 'repos'
-    Dir.chdir 'repos' do
-      Dir.mkdir 'a_repo'
-      Dir.chdir('a_repo') { `git init` }
-
-      Dir.mkdir 'not_a_repo'
-
-      Dir.mkdir 'repo_inside'
-      Dir.chdir 'repo_inside' do
-        Dir.mkdir 'another_repo'
-        Dir.chdir('another_repo') { `git init` }
-      end
-    end
-  end
-
-  after :context do
-    FileUtils.rm_r 'repos'
-  end
-
   describe '.VERSION' do
     it 'exists' do
       expect(Findrepos::VERSION).not_to be nil
@@ -46,6 +26,26 @@ describe Findrepos do
   end
 
   describe '.list' do
+    before :context do
+      Dir.mkdir 'repos'
+      Dir.chdir 'repos' do
+        Dir.mkdir 'a_repo'
+        Dir.chdir('a_repo') { `git init` }
+
+        Dir.mkdir 'not_a_repo'
+
+        Dir.mkdir 'repo_inside'
+        Dir.chdir 'repo_inside' do
+          Dir.mkdir 'another_repo'
+          Dir.chdir('another_repo') { `git init` }
+        end
+      end
+    end
+
+    after :context do
+      FileUtils.rm_r 'repos'
+    end
+
     context 'without recursion' do
       it 'lists all Git repositories in the current directory' do
         Dir.chdir 'repos' do
@@ -53,6 +53,7 @@ describe Findrepos do
         end
       end
     end
+
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
