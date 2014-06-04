@@ -3,13 +3,13 @@ require 'pathname'
 
 module Findrepos
   class CLI < Thor
-    desc 'list', 'lists all Git repositories in the current directory'
+    desc 'list [DIRECTORY]', 'lists all Git repositories in the given directory'
     option :recursive,
            desc: 'finds Git repositories in subdirectories recursively',
            type: :boolean,
            aliases: :'-r'
-    def list
-      Findrepos.list(recursive: options[:recursive]).each do |repo|
+    def list(directory = '.')
+      Findrepos.list(directory, recursive: options[:recursive]).each do |repo|
         if Findrepos.clean?(repo)
           say_status 'clean', repo, :green
         else
