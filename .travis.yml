@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 2.1.1
+before_script:
+  - git config user.name "Example"
+  - git config user.email "example@example.com"
 addons:
   code_climate:
     repo_token: bf4b468e5faf5e886f834c94d11ca79664a895a3cda0d9c455cee2db2ca5fc9d
