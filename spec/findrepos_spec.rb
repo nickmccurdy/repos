@@ -12,6 +12,9 @@ describe Findrepos do
       Dir.mkdir 'repo'
       Dir.chdir 'repo' do
         `git init`
+        `git config user.name "Example"`
+        `git config user.email "example@example.com"`
+
         FileUtils.touch 'file'
         `git add file`
         `git commit -m "Initial commit." --author "Example <example@example.com>"`
