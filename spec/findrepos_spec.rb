@@ -27,6 +27,24 @@ describe Findrepos do
     end
   end
 
+  describe '.clean?' do
+    context 'when the given repo has an untracked file' do
+      it 'returns false'
+    end
+    context 'when the given repo has a modified file in the working tree' do
+      it 'returns false'
+    end
+    context 'when the given repo has a modified file in the stage' do
+      it 'returns false'
+    end
+    context 'when the given repo has neither uncommitted changes nor untracked files' do
+      it 'returns true'
+    end
+    context 'when the given repo has no commits' do
+      it 'has tests'
+    end
+  end
+
   describe '.list' do
     context 'without recursion' do
       it 'lists all Git repositories in the current directory' do
