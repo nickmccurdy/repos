@@ -17,7 +17,7 @@ describe Findrepos do
 
         FileUtils.touch 'file'
         `git add file`
-        `git commit -m "Initial commit." --author "Example <example@example.com>"`
+        `git commit -m "Initial commit."`
       end
     end
 
@@ -49,7 +49,8 @@ describe Findrepos do
       end
     end
 
-    context 'when the given repo has neither uncommitted changes nor untracked files' do
+    context 'when the given repo has neither uncommitted changes nor ' \
+            'untracked files' do
       it 'returns true' do
         expect(Findrepos.clean? 'repo').to be true
       end
@@ -90,7 +91,8 @@ describe Findrepos do
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Findrepos.list('repos', recursive: true)).to contain_exactly('repos/a_repo', 'repos/repo_inside/another_repo')
+        expect(Findrepos.list('repos', recursive: true)).to \
+          contain_exactly('repos/a_repo', 'repos/repo_inside/another_repo')
       end
     end
   end
