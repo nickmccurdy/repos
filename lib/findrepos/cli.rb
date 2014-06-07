@@ -18,13 +18,22 @@ module Findrepos
     def list(directory = '.') # :nodoc:
       Findrepos.list(directory, recursive: options[:recursive]).each do |repo|
         if Findrepos.clean?(repo)
-          say_status 'clean', repo, :green if !options[:dirty]
+          say_git_status true, repo if !options[:dirty]
         else
-          say_status 'dirty', repo, :red if !options[:clean]
+          say_git_status false, repo if !options[:clean]
         end
       end
     end
 
     default_command :list
+
+    private
+
+    def say_git_status(clean, message)
+      status = clean ? 'clean' : 'dirty'
+      color = clean ? :green : :red
+      status = set_color status, color, true
+      puts "#{status} #{message}"
+    end
   end
 end
