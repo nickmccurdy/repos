@@ -9,12 +9,18 @@ module Findrepos
            desc: 'finds Git repositories in subdirectories recursively',
            type: :boolean,
            aliases: :'-r'
+    option :clean,
+           desc: 'finds clean repositories only',
+           type: :boolean
+    option :dirty,
+           desc: 'finds dirty repositories only',
+           type: :boolean
     def list(directory = '.') # :nodoc:
       Findrepos.list(directory, recursive: options[:recursive]).each do |repo|
         if Findrepos.clean?(repo)
-          say_status 'clean', repo, :green
+          say_status 'clean', repo, :green if !options[:dirty]
         else
-          say_status 'dirty', repo, :red
+          say_status 'dirty', repo, :red if !options[:clean]
         end
       end
     end
