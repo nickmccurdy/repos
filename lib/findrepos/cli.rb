@@ -9,6 +9,11 @@ module Findrepos
            desc: 'finds Git repositories in subdirectories recursively',
            type: :boolean,
            aliases: :'-r'
+    option :verbose,
+           desc: 'shows additional repo information, including the status ' \
+                 'and list of stashes',
+           type: :boolean,
+           aliases: :'-v'
     option :filter,
            desc: 'finds clean repos only, dirty repos only, or all repos',
            banner: 'all|clean|dirty',
@@ -18,6 +23,14 @@ module Findrepos
     def list(directory = '.') # :nodoc:
       Findrepos.list(directory, recursive: options[:recursive]).each do |repo|
         say_git_status(Findrepos.clean?(repo), repo, options[:filter])
+
+        if options[:verbose]
+          Dir.chdir repo do
+            system 'git status'
+            system 'git stash list'
+            puts
+          end
+        end
       end
     end
 
