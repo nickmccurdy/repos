@@ -91,7 +91,7 @@ describe Findrepos do
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Findrepos.list('repos', recursive: true)).to \
+        expect(Findrepos.list('repos', true)).to \
           contain_exactly('repos/a_repo', 'repos/repo_inside/another_repo')
       end
     end

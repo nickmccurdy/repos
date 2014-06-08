@@ -21,7 +21,7 @@ module Findrepos
            type: :string,
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
-      Findrepos.list(directory, recursive: options[:recursive]).each do |repo|
+      Findrepos.list(directory, options[:recursive]).each do |repo|
         say_git_status(Findrepos.clean?(repo), repo, options[:filter])
 
         if options[:verbose]
