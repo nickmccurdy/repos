@@ -30,13 +30,13 @@ module Findrepos
           say repo
         else
           say_git_status(Findrepos.clean?(repo), repo)
+        end
 
-          if options[:verbose]
-            Dir.chdir repo do
-              system 'git status'
-              system 'git stash list'
-              puts
-            end
+        if options[:verbose]
+          Dir.chdir repo do
+            system 'git status'
+            system 'git stash list'
+            puts
           end
         end
       end
