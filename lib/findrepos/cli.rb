@@ -14,6 +14,10 @@ module Findrepos
                  'and list of stashes',
            type: :boolean,
            aliases: :'-v'
+    option :names,
+           desc: 'only displays paths to repos',
+           type: :boolean,
+           aliases: :'-n'
     option :filter,
            desc: 'finds clean repos only, dirty repos only, or all repos',
            banner: 'all|clean|dirty',
@@ -22,13 +26,17 @@ module Findrepos
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
       Findrepos.list(directory, options[:filter], options[:recursive]).each do |repo|
-        say_git_status(Findrepos.clean?(repo), repo)
+        if options[:names]
+          say repo
+        else
+          say_git_status(Findrepos.clean?(repo), repo)
 
-        if options[:verbose]
-          Dir.chdir repo do
-            system 'git status'
-            system 'git stash list'
-            puts
+          if options[:verbose]
+            Dir.chdir repo do
+              system 'git status'
+              system 'git stash list'
+              puts
+            end
           end
         end
       end
