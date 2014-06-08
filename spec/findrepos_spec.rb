@@ -8,22 +8,9 @@ describe Findrepos do
   end
 
   describe '.clean?' do
-    before :example do
-      Dir.mkdir 'repo'
-      Dir.chdir 'repo' do
-        `git init`
-        `git config user.name "Example"`
-        `git config user.email "example@example.com"`
+    before(:example) { create_repo 'repo' }
 
-        FileUtils.touch 'file'
-        `git add file`
-        `git commit -m "Initial commit."`
-      end
-    end
-
-    after :example do
-      FileUtils.rm_r 'repo'
-    end
+    after(:example) { FileUtils.rm_r 'repo' }
 
     context 'when the given repo has an untracked file' do
       it 'returns false' do
@@ -65,16 +52,12 @@ describe Findrepos do
     before :context do
       Dir.mkdir 'repos'
       Dir.chdir 'repos' do
-        Dir.mkdir 'a_repo'
-        Dir.chdir('a_repo') { `git init` }
+        create_repo 'a_repo'
 
         Dir.mkdir 'not_a_repo'
 
         Dir.mkdir 'repo_inside'
-        Dir.chdir 'repo_inside' do
-          Dir.mkdir 'another_repo'
-          Dir.chdir('another_repo') { `git init` }
-        end
+        Dir.chdir('repo_inside') { create_repo 'another_repo' }
       end
     end
 
