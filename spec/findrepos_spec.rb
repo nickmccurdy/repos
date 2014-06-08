@@ -52,7 +52,10 @@ describe Findrepos do
     before :context do
       Dir.mkdir 'repos'
       Dir.chdir 'repos' do
-        create_repo 'a_repo'
+        create_repo 'a_clean_repo'
+
+        create_repo 'a_dirty_repo'
+        Dir.chdir('a_dirty_repo') { `echo "Hello, world!" > file` }
 
         Dir.mkdir 'not_a_repo'
 
@@ -65,17 +68,33 @@ describe Findrepos do
       FileUtils.rm_r 'repos'
     end
 
-    context 'without recursion' do
-      it 'lists all Git repositories in the current directory' do
-        expect(Findrepos.list 'repos').to eq ['repos/a_repo']
+    context 'by default' do
+      it 'lists all clean and dirty Git repositories in the current directory' do
+        expect(Findrepos.list 'repos').to \
+          contain_exactly('repos/a_clean_repo', 'repos/a_dirty_repo')
       end
     end
 
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Findrepos.list('repos', true)).to \
-          contain_exactly('repos/a_repo', 'repos/repo_inside/another_repo')
+        expect(Findrepos.list('repos', 'all', true)).to \
+          contain_exactly('repos/a_clean_repo', 'repos/a_dirty_repo',
+                          'repos/repo_inside/another_repo')
+      end
+    end
+
+    context 'when filter is "clean"' do
+      it 'only lists clean repos' do
+        expect(Findrepos.list('repos', 'clean')).to \
+          contain_exactly('repos/a_clean_repo')
+      end
+    end
+
+    context 'when filter is "dirty"' do
+      it 'only lists dirty repos' do
+        expect(Findrepos.list('repos', 'dirty')).to \
+          contain_exactly('repos/a_dirty_repo')
       end
     end
   end

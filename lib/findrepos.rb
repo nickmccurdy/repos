@@ -11,12 +11,21 @@ module Findrepos
   # * +directory+ - A String of the path to search for repositories within. This
   #   method will not check to see if the directory itself is a
   #   git repository. The path can be absolute or relative.
+  # * +filter+ - 'clean' to find clean repos only, 'dirty' to find dirty repos
+  #   only, and anything else to find all repos (dirty or clean).
   # * +recursive+ - True if Git repositories should be searched for within
   #   subdirectories.
-  def self.list(directory, recursive = false)
+  def self.list(directory, filter = 'all', recursive = false)
     pattern = recursive ? '**/.git' : '*/.git'
-    Dir.glob("#{directory}/#{pattern}").map do |git_directory|
+    repos = Dir.glob("#{directory}/#{pattern}").map do |git_directory|
       Pathname.new(git_directory).dirname.to_s
+    end
+    is_clean = proc { |repo| Findrepos.clean?(repo) }
+
+    case filter
+    when 'clean' then repos.select &is_clean
+    when 'dirty' then repos.reject &is_clean
+    else repos
     end
   end
 

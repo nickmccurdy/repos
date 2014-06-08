@@ -21,8 +21,8 @@ module Findrepos
            type: :string,
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
-      Findrepos.list(directory, options[:recursive]).each do |repo|
-        say_git_status(Findrepos.clean?(repo), repo, options[:filter])
+      Findrepos.list(directory, options[:filter], options[:recursive]).each do |repo|
+        say_git_status(Findrepos.clean?(repo), repo)
 
         if options[:verbose]
           Dir.chdir repo do
@@ -38,9 +38,8 @@ module Findrepos
 
     private
 
-    def say_git_status(clean, message, filter = 'all')
+    def say_git_status(clean, message)
       status = clean ? 'clean' : 'dirty'
-      return if filter != 'all' && filter != status
       color = clean ? :green : :red
       status = set_color status, color, true
       puts "#{status} #{message}"
