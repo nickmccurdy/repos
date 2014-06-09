@@ -9,13 +9,13 @@ describe Findrepos::CLI do
 
   describe '#say_git_status' do
     context 'by default' do
-      it 'displays a clean repo' do
+      it 'displays a clean repository' do
         expect do
           cli.send(:say_git_status, true, 'hello')
         end.to output("clean hello\n").to_stdout
       end
 
-      it 'displays a dirty repo' do
+      it 'displays a dirty repository' do
         expect do
           cli.send(:say_git_status, false, 'hello')
         end.to output("dirty hello\n").to_stdout

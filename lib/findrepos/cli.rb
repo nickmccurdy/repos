@@ -10,30 +10,31 @@ module Findrepos
            type: :boolean,
            aliases: :'-r'
     option :verbose,
-           desc: 'shows additional repo information, including the status ' \
-                 'and list of stashes',
+           desc: 'shows additional repository information, including the ' \
+                 'status and list of stashes',
            type: :boolean,
            aliases: :'-v'
     option :names,
-           desc: 'only displays paths to repos',
+           desc: 'only displays paths to repositories',
            type: :boolean,
            aliases: :'-n'
     option :filter,
-           desc: 'finds clean repos only, dirty repos only, or all repos',
+           desc: 'finds clean repositories only, dirty repositories only, or ' \
+                 'all repositories',
            banner: 'all|clean|dirty',
            default: 'all',
            type: :string,
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
-      Findrepos.list(directory, options[:filter], options[:recursive]).each do |repo|
+      Findrepos.list(directory, options[:filter], options[:recursive]).each do |repository|
         if options[:names]
-          say repo
+          say repository
         else
-          say_git_status(Findrepos.clean?(repo), repo)
+          say_git_status(Findrepos.clean?(repository), repository)
         end
 
         if options[:verbose]
-          Dir.chdir repo do
+          Dir.chdir repository do
             system 'git status'
             system 'git stash list'
             puts
