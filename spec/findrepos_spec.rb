@@ -19,7 +19,8 @@ describe Findrepos do
       end
     end
 
-    context 'when the given repository has a modified file in the working tree' do
+    context 'when the given repository has a modified file in the working ' \
+            'tree' do
       it 'returns false' do
         Dir.chdir('repo') { `echo "hello" > file` }
         expect(Findrepos.clean? 'repo').to be false
@@ -69,7 +70,8 @@ describe Findrepos do
     end
 
     context 'by default' do
-      it 'lists all clean and dirty Git repositories in the current directory' do
+      it 'lists all clean and dirty Git repositories in the current ' \
+         'directory' do
         expect(Findrepos.list 'repos').to \
           contain_exactly('repos/a_clean_repo', 'repos/a_dirty_repo')
       end

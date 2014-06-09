@@ -26,7 +26,9 @@ module Findrepos
            type: :string,
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
-      Findrepos.list(directory, options[:filter], options[:recursive]).each do |repository|
+      Findrepos.list(directory,
+                     options[:filter],
+                     options[:recursive]).each do |repository|
         if options[:names]
           say repository
         else

@@ -24,8 +24,8 @@ module Findrepos
     is_clean = proc { |repository| Findrepos.clean?(repository) }
 
     case filter
-    when 'clean' then repositories.select &is_clean
-    when 'dirty' then repositories.reject &is_clean
+    when 'clean' then repositories.select(&is_clean)
+    when 'dirty' then repositories.reject(&is_clean)
     else repositories
     end
   end
@@ -34,8 +34,8 @@ module Findrepos
   # untracked files. Expects the repository to have at least one commit.
   #
   # ==== Attributes
-  # * +repository+ - A String of the path to the repository to check. The path can be
-  #   absolute or relative.
+  # * +repository+ - A String of the path to the repository to check. The path
+  #   can be absolute or relative.
   def self.clean?(repository)
     Dir.chdir(repository) do
       empty_diff = system('git diff-index --quiet HEAD')
