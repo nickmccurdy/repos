@@ -50,24 +50,9 @@ describe Findrepos do
   end
 
   describe '.list' do
-    before :context do
-      Dir.mkdir 'repos'
-      Dir.chdir 'repos' do
-        create_repo 'a_clean_repo'
+    before(:context) { create_repo_tree }
 
-        create_repo 'a_dirty_repo'
-        Dir.chdir('a_dirty_repo') { `echo "Hello, world!" > file` }
-
-        Dir.mkdir 'not_a_repo'
-
-        Dir.mkdir 'repo_inside'
-        Dir.chdir('repo_inside') { create_repo 'another_repo' }
-      end
-    end
-
-    after :context do
-      FileUtils.rm_r 'repos'
-    end
+    after(:context) { FileUtils.rm_r 'repos' }
 
     context 'by default' do
       it 'lists all clean and dirty Git repositories in the current ' \

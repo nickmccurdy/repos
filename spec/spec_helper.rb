@@ -16,3 +16,18 @@ def create_repo(name)
     `git commit -m "Initial commit."`
   end
 end
+
+def create_repo_tree
+  Dir.mkdir 'repos'
+  Dir.chdir 'repos' do
+    create_repo 'a_clean_repo'
+
+    create_repo 'a_dirty_repo'
+    Dir.chdir('a_dirty_repo') { `echo "Hello, world!" > file` }
+
+    Dir.mkdir 'not_a_repo'
+
+    Dir.mkdir 'repo_inside'
+    Dir.chdir('repo_inside') { create_repo 'another_repo' }
+  end
+end
