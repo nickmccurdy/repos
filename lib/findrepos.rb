@@ -18,7 +18,7 @@ module Findrepos
   #   subdirectories.
   def self.list(directory, filter = 'all', recursive = false)
     pattern = recursive ? '**/.git' : '*/.git'
-    repositories = Dir.glob("#{directory}/#{pattern}").map do |git_directory|
+    repositories = Dir.glob("#{directory}/#{pattern}").sort.map do |git_directory|
       Pathname.new(git_directory).dirname.to_s
     end
     is_clean = proc { |repository| Findrepos.clean?(repository) }

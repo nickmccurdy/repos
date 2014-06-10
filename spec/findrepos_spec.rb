@@ -57,31 +57,33 @@ describe Findrepos do
     context 'by default' do
       it 'lists all clean and dirty Git repositories in the current ' \
          'directory' do
-        expect(Findrepos.list 'repos').to \
-          contain_exactly('repos/a_clean_repo', 'repos/a_dirty_repo')
+        expect(Findrepos.list 'repos').to eq [
+          'repos/a_clean_repo',
+          'repos/a_dirty_repo'
+        ]
       end
     end
 
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Findrepos.list('repos', 'all', true)).to \
-          contain_exactly('repos/a_clean_repo', 'repos/a_dirty_repo',
-                          'repos/repo_inside/another_repo')
+        expect(Findrepos.list('repos', 'all', true)).to eq [
+          'repos/a_clean_repo',
+          'repos/a_dirty_repo',
+          'repos/repo_inside/another_repo'
+        ]
       end
     end
 
     context 'when filter is "clean"' do
       it 'only lists clean repositories' do
-        expect(Findrepos.list('repos', 'clean')).to \
-          contain_exactly('repos/a_clean_repo')
+        expect(Findrepos.list('repos', 'clean')).to eq ['repos/a_clean_repo']
       end
     end
 
     context 'when filter is "dirty"' do
       it 'only lists dirty repositories' do
-        expect(Findrepos.list('repos', 'dirty')).to \
-          contain_exactly('repos/a_dirty_repo')
+        expect(Findrepos.list('repos', 'dirty')).to eq ['repos/a_dirty_repo']
       end
     end
   end
