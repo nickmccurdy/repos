@@ -1,9 +1,9 @@
-require 'findrepos/version'
-require 'findrepos/cli'
+require 'repos/version'
+require 'repos/cli'
 
-# The main module of findrepos, which includes its core functionality and more
+# The main module of repos, which includes its core functionality and more
 # modules for supporting functionality.
-module Findrepos
+module Repos
   # Lists all Git repository in the current directory. When recursive is true,
   # it also lists Git repositories found in subdirectories.
   #
@@ -21,7 +21,7 @@ module Findrepos
     repositories = Dir.glob("#{directory}/#{pattern}").sort.map do |git_directory|
       Pathname.new(git_directory).dirname.to_s
     end
-    is_clean = proc { |repository| Findrepos.clean?(repository) }
+    is_clean = proc { |repository| Repos.clean?(repository) }
 
     case filter
     when 'clean' then repositories.select(&is_clean)

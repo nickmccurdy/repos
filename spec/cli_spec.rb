@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Findrepos::CLI do
+describe Repos::CLI do
   describe '#list' do
     before(:context) { create_repo_tree }
 
@@ -9,7 +9,7 @@ describe Findrepos::CLI do
     context 'by default' do
       it 'lists all clean and dirty Git repositories in the current ' \
         'directory' do
-        expect { Findrepos::CLI.start %w(list repos) }.to \
+        expect { Repos::CLI.start %w(list repos) }.to \
           output("clean repos/a_clean_repo\ndirty repos/a_dirty_repo\n")
           .to_stdout
       end
@@ -18,7 +18,7 @@ describe Findrepos::CLI do
     context 'with --recursive' do
       it 'lists all Git repositories in the current directory and all ' \
       'subdirectories' do
-        expect { Findrepos::CLI.start %w(list repos --recursive) }.to \
+        expect { Repos::CLI.start %w(list repos --recursive) }.to \
           output("clean repos/a_clean_repo\ndirty repos/a_dirty_repo\nclean repos/repo_inside/another_repo\n").to_stdout
       end
     end
@@ -30,7 +30,7 @@ describe Findrepos::CLI do
     context 'with --names' do
       it 'lists all clean and dirty Git repositories in the current ' \
         'directory' do
-        expect { Findrepos::CLI.start %w(list repos --names) }.to \
+        expect { Repos::CLI.start %w(list repos --names) }.to \
           output("repos/a_clean_repo\nrepos/a_dirty_repo\n").to_stdout
       end
     end
@@ -38,14 +38,14 @@ describe Findrepos::CLI do
     context 'with --filter' do
       context 'when filter is "clean"' do
         it 'only lists clean repositories' do
-          expect { Findrepos::CLI.start %w(list repos --filter=clean) }.to \
+          expect { Repos::CLI.start %w(list repos --filter=clean) }.to \
             output("clean repos/a_clean_repo\n").to_stdout
         end
       end
 
       context 'when filter is "dirty"' do
         it 'only lists dirty repositories' do
-          expect { Findrepos::CLI.start %w(list repos --filter=dirty) }.to \
+          expect { Repos::CLI.start %w(list repos --filter=dirty) }.to \
             output("dirty repos/a_dirty_repo\n").to_stdout
         end
       end
@@ -53,7 +53,7 @@ describe Findrepos::CLI do
   end
 
   describe '#say_git_status' do
-    let(:cli) { Findrepos::CLI.new }
+    let(:cli) { Repos::CLI.new }
 
     it 'displays a clean repository' do
       expect do

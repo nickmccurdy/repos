@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Findrepos do
+describe Repos do
   describe '.VERSION' do
     it 'exists' do
-      expect(Findrepos::VERSION).not_to be nil
+      expect(Repos::VERSION).not_to be nil
     end
   end
 
@@ -15,7 +15,7 @@ describe Findrepos do
     context 'when the given repository has an untracked file' do
       it 'returns false' do
         Dir.chdir('repo') { FileUtils.touch 'README' }
-        expect(Findrepos.clean? 'repo').to be false
+        expect(Repos.clean? 'repo').to be false
       end
     end
 
@@ -23,7 +23,7 @@ describe Findrepos do
             'tree' do
       it 'returns false' do
         Dir.chdir('repo') { `echo "hello" > file` }
-        expect(Findrepos.clean? 'repo').to be false
+        expect(Repos.clean? 'repo').to be false
       end
     end
 
@@ -33,14 +33,14 @@ describe Findrepos do
           `echo "hello" > file`
           `git add file`
         end
-        expect(Findrepos.clean? 'repo').to be false
+        expect(Repos.clean? 'repo').to be false
       end
     end
 
     context 'when the given repository has neither uncommitted changes nor ' \
             'untracked files' do
       it 'returns true' do
-        expect(Findrepos.clean? 'repo').to be true
+        expect(Repos.clean? 'repo').to be true
       end
     end
 
@@ -57,7 +57,7 @@ describe Findrepos do
     context 'by default' do
       it 'lists all clean and dirty Git repositories in the current ' \
          'directory' do
-        expect(Findrepos.list 'repos').to eq [
+        expect(Repos.list 'repos').to eq [
           'repos/a_clean_repo',
           'repos/a_dirty_repo'
         ]
@@ -67,7 +67,7 @@ describe Findrepos do
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Findrepos.list('repos', 'all', true)).to eq [
+        expect(Repos.list('repos', 'all', true)).to eq [
           'repos/a_clean_repo',
           'repos/a_dirty_repo',
           'repos/repo_inside/another_repo'
@@ -77,13 +77,13 @@ describe Findrepos do
 
     context 'when filter is "clean"' do
       it 'only lists clean repositories' do
-        expect(Findrepos.list('repos', 'clean')).to eq ['repos/a_clean_repo']
+        expect(Repos.list('repos', 'clean')).to eq ['repos/a_clean_repo']
       end
     end
 
     context 'when filter is "dirty"' do
       it 'only lists dirty repositories' do
-        expect(Findrepos.list('repos', 'dirty')).to eq ['repos/a_dirty_repo']
+        expect(Repos.list('repos', 'dirty')).to eq ['repos/a_dirty_repo']
       end
     end
   end

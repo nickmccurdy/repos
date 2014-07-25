@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'findrepos/version'
+require 'repos/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'findrepos'
-  spec.version       = Findrepos::VERSION
+  spec.name          = 'repos'
+  spec.version       = Repos::VERSION
   spec.authors       = ['Nicolas McCurdy']
   spec.email         = ['thenickperson@gmail.com']
   spec.summary       = 'A tool for finding git repositories locally.'
-  spec.homepage      = 'https://github.com/nicolasmccurdy/findrepos'
+  spec.homepage      = 'https://github.com/nicolasmccurdy/repos'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -1,8 +1,8 @@
 require 'thor'
 require 'pathname'
 
-module Findrepos
-  # The command line interface for the findrepos executable.
+module Repos
+  # The command line interface for the repos executable.
   class CLI < Thor
     desc 'list [DIRECTORY]', 'lists all Git repositories in the given directory'
     option :recursive,
@@ -26,13 +26,13 @@ module Findrepos
            type: :string,
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
-      Findrepos.list(directory,
+      Repos.list(directory,
                      options[:filter],
                      options[:recursive]).each do |repository|
         if options[:names]
           say repository
         else
-          say_git_status(Findrepos.clean?(repository), repository)
+          say_git_status(Repos.clean?(repository), repository)
         end
 
         if options[:verbose]

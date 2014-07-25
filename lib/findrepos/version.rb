@@ -1,4 +1,4 @@
-module Findrepos
+module Repos
   # The version number of the gem.
   VERSION = '0.0.1'
 end
