@@ -27,8 +27,8 @@ module Repos
            aliases: :'-f'
     def list(directory = '.') # :nodoc:
       Repos.list(directory,
-                     options[:filter],
-                     options[:recursive]).each do |repository|
+                 options[:filter],
+                 options[:recursive]).each do |repository|
         if options[:names]
           say repository
         else
