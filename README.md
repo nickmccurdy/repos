@@ -1,4 +1,5 @@
 # Repos
+[![Gem Version](https://badge.fury.io/rb/repos.svg)](http://badge.fury.io/rb/repos)
 [![Build Status](https://travis-ci.org/nicolasmccurdy/repos.svg?branch=master)](https://travis-ci.org/nicolasmccurdy/repos)
 [![Dependency Status](https://gemnasium.com/nicolasmccurdy/repos.svg)](https://gemnasium.com/nicolasmccurdy/repos)
 [![Code Climate](https://codeclimate.com/github/nicolasmccurdy/findrepos.png)](https://codeclimate.com/github/nicolasmccurdy/findrepos)
