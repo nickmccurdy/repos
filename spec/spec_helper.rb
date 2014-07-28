@@ -18,8 +18,8 @@ def create_repo(name)
 end
 
 def create_repo_tree
-  Dir.mkdir 'repos'
-  Dir.chdir 'repos' do
+  Dir.mkdir 'dir'
+  Dir.chdir 'dir' do
     create_repo 'a_clean_repo'
 
     create_repo 'a_dirty_repo'

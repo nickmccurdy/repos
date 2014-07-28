@@ -52,14 +52,14 @@ describe Repos do
   describe '.list' do
     before(:context) { create_repo_tree }
 
-    after(:context) { FileUtils.rm_r 'repos' }
+    after(:context) { FileUtils.rm_r 'dir' }
 
     context 'by default' do
       it 'lists all clean and dirty Git repositories in the current ' \
          'directory' do
-        expect(Repos.list 'repos').to eq [
-          'repos/a_clean_repo',
-          'repos/a_dirty_repo'
+        expect(Repos.list 'dir').to eq [
+          'dir/a_clean_repo',
+          'dir/a_dirty_repo'
         ]
       end
     end
@@ -67,23 +67,23 @@ describe Repos do
     context 'with recursion' do
       it 'lists all Git repositories in the current directory and all ' \
          'subdirectories' do
-        expect(Repos.list('repos', 'all', true)).to eq [
-          'repos/a_clean_repo',
-          'repos/a_dirty_repo',
-          'repos/repo_inside/another_repo'
+        expect(Repos.list('dir', 'all', true)).to eq [
+          'dir/a_clean_repo',
+          'dir/a_dirty_repo',
+          'dir/repo_inside/another_repo'
         ]
       end
     end
 
     context 'when filter is "clean"' do
       it 'only lists clean repositories' do
-        expect(Repos.list('repos', 'clean')).to eq ['repos/a_clean_repo']
+        expect(Repos.list('dir', 'clean')).to eq ['dir/a_clean_repo']
       end
     end
 
     context 'when filter is "dirty"' do
       it 'only lists dirty repositories' do
-        expect(Repos.list('repos', 'dirty')).to eq ['repos/a_dirty_repo']
+        expect(Repos.list('dir', 'dirty')).to eq ['dir/a_dirty_repo']
       end
     end
   end
