@@ -22,7 +22,7 @@ describe Repos do
     context 'when the given repository has a modified file in the working ' \
             'tree' do
       it 'returns false' do
-        Dir.chdir('repo') { `echo "hello" > file` }
+        Dir.chdir('repo') { File.open('file', 'w') { |f| f.write('hello') } }
         expect(Repos.clean? 'repo').to be false
       end
     end
@@ -30,7 +30,7 @@ describe Repos do
     context 'when the given repository has a modified file in the stage' do
       it 'returns false' do
         Dir.chdir 'repo' do
-          `echo "hello" > file`
+          File.open('file', 'w') { |f| f.write('hello') }
           `git add file`
         end
         expect(Repos.clean? 'repo').to be false

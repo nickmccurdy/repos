@@ -23,7 +23,9 @@ def create_repo_tree
     create_repo 'a_clean_repo'
 
     create_repo 'a_dirty_repo'
-    Dir.chdir('a_dirty_repo') { `echo "Hello, world!" > file` }
+    Dir.chdir('a_dirty_repo') do
+      File.open('file', 'w') { |f| f.write('Hello, world!') }
+    end
 
     Dir.mkdir 'not_a_repo'
 
