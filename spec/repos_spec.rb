@@ -45,7 +45,17 @@ describe Repos do
     end
 
     context 'when the given repository has no commits' do
-      it 'has tests'
+      context 'and is otherwise empty' do
+        it 'returns true'
+      end
+
+      context 'and has a file' do
+        it 'returns false'
+      end
+
+      context 'and has an empty directory' do
+        it 'returns true'
+      end
     end
   end
 
