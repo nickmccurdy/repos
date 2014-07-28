@@ -38,7 +38,7 @@ module Repos
         if options[:verbose]
           Dir.chdir repository do
             system 'git status'
-            system 'git stash list'
+            system 'git stash --no-pager list'
             puts
           end
         end
