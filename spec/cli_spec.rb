@@ -53,7 +53,7 @@ describe Repos::CLI do
   end
 
   describe '#say_git_status' do
-    let(:cli) { Repos::CLI.new }
+    let(:cli) { Repos::CLI }
 
     it 'displays a clean repository' do
       expect do
