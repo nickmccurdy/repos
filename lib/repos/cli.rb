@@ -1,5 +1,4 @@
 require 'thor'
-require 'pathname'
 
 module Repos
   # The command line interface for the repos executable.
