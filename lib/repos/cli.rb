@@ -6,12 +6,12 @@ module Repos
   module CLI
     def self.start(args) # :nodoc:
       options = Slop.parse! args, help: true do
-        banner "Usage: repos [DIRECTORY]\nlists all Git repositories in the given directory\n"
+        banner "Usage: repos [DIRECTORY]\nLists all Git repositories in the given directory.\n"
 
-        on :r, :recursive, 'finds Git repositories in subdirectories recursively'
-        on :v, :verbose,   'shows additional repository information, including the status and list of stashes'
-        on :n, :names,     'only displays paths to repositories'
-        on :f=, :filter=,  'finds clean repositories only, dirty repositories only, or all repositories', default: 'all'
+        on :r, :recursive, 'Finds Git repositories in subdirectories recursively.'
+        on :v, :verbose,   'Shows additional repository information, including the status and list of stashes.'
+        on :n, :names,     'Only displays paths to repositories.'
+        on :f=, :filter=,  'Finds clean repositories only, dirty repositories only, or all repositories.', default: 'all'
       end
 
       directory = args[0] || '.'
