@@ -5,8 +5,8 @@ module Repos
   # The command line interface for the repos executable.
   module CLI
     def self.start(args) # :nodoc:
-      options = Slop.parse! args do
-        banner 'Usage: repos [DIRECTORY]'
+      options = Slop.parse! args, help: true do
+        banner "Usage: repos [DIRECTORY]\nlists all Git repositories in the given directory\n"
 
         on :r, :recursive, 'finds Git repositories in subdirectories recursively'
         on :v, :verbose,   'shows additional repository information, including the status and list of stashes'
