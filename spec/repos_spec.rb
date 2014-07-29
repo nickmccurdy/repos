@@ -43,16 +43,32 @@ describe Repos do
     end
 
     context 'with no commits' do
+      before(:example) { create_empty_repo }
+
+      after(:example) { FileUtils.rm_r 'an_empty_repo' }
+
       context 'and no untracked files' do
-        it 'returns true'
+        it 'returns true' do
+          expect(Repos.clean? 'an_empty_repo').to be true
+        end
       end
 
       context 'and an untracked file' do
-        it 'returns false'
+        it 'returns false' do
+          Dir.chdir 'an_empty_repo' do
+            File.open('file', 'w') { |f| f.write('hello') }
+          end
+          expect(Repos.clean? 'an_empty_repo').to be false
+        end
       end
 
       context 'and an empty directory' do
-        it 'returns true'
+        it 'returns true' do
+          Dir.chdir 'an_empty_repo' do
+            Dir.mkdir 'dir'
+          end
+          expect(Repos.clean? 'an_empty_repo').to be true
+        end
       end
     end
   end

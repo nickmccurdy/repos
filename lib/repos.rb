@@ -38,9 +38,15 @@ module Repos
   #   can be absolute or relative.
   def self.clean?(repository)
     Dir.chdir(repository) do
-      empty_diff = system('git diff-index --quiet HEAD')
-      untracked = `git ls-files --other --directory --exclude-standard` != ''
-      empty_diff && !untracked
+      has_commits = `git show-ref --head HEAD` != ''
+      untracked = `git ls-files --other --directory --no-empty-directory --exclude-standard` != ''
+
+      if has_commits
+        empty_diff = system('git diff-index --quiet HEAD')
+        empty_diff && !untracked
+      else
+        !untracked
+      end
     end
   end
 end

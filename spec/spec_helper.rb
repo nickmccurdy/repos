@@ -17,6 +17,12 @@ def create_repo(name)
   end
 end
 
+def create_empty_repo
+  name = 'an_empty_repo'
+  Dir.mkdir name
+  Dir.chdir(name) { `git init` }
+end
+
 def create_repo_tree
   Dir.mkdir 'dir'
   Dir.chdir 'dir' do
