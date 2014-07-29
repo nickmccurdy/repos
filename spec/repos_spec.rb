@@ -12,22 +12,21 @@ describe Repos do
 
     after(:example) { FileUtils.rm_r 'repo' }
 
-    context 'when the given repository has an untracked file' do
+    context 'with an untracked file' do
       it 'returns false' do
         Dir.chdir('repo') { FileUtils.touch 'README' }
         expect(Repos.clean? 'repo').to be false
       end
     end
 
-    context 'when the given repository has a modified file in the working ' \
-            'tree' do
+    context 'with a modified file in the working tree' do
       it 'returns false' do
         Dir.chdir('repo') { File.open('file', 'w') { |f| f.write('hello') } }
         expect(Repos.clean? 'repo').to be false
       end
     end
 
-    context 'when the given repository has a modified file in the stage' do
+    context 'with a modified file in the stage' do
       it 'returns false' do
         Dir.chdir 'repo' do
           File.open('file', 'w') { |f| f.write('hello') }
@@ -37,23 +36,22 @@ describe Repos do
       end
     end
 
-    context 'when the given repository has neither uncommitted changes nor ' \
-            'untracked files' do
+    context 'with neither uncommitted nor untracked changes' do
       it 'returns true' do
         expect(Repos.clean? 'repo').to be true
       end
     end
 
-    context 'when the given repository has no commits' do
-      context 'and is otherwise empty' do
+    context 'with no commits' do
+      context 'and no untracked files' do
         it 'returns true'
       end
 
-      context 'and has a file' do
+      context 'and an untracked file' do
         it 'returns false'
       end
 
-      context 'and has an empty directory' do
+      context 'and an empty directory' do
         it 'returns true'
       end
     end
@@ -65,8 +63,7 @@ describe Repos do
     after(:context) { FileUtils.rm_r 'dir' }
 
     context 'by default' do
-      it 'lists all clean and dirty Git repositories in the given ' \
-         'directory' do
+      it 'lists git repositories in the given directory' do
         expect(Repos.list 'dir').to eq [
           'dir/a_clean_repo',
           'dir/a_dirty_repo'
@@ -75,8 +72,7 @@ describe Repos do
     end
 
     context 'with recursion' do
-      it 'lists all Git repositories in the given directory and all ' \
-         'subdirectories' do
+      it 'lists git repositories in the given directory and subdirectories' do
         expect(Repos.list('dir', 'all', true)).to eq [
           'dir/a_clean_repo',
           'dir/a_dirty_repo',
@@ -85,14 +81,14 @@ describe Repos do
       end
     end
 
-    context 'when filter is "clean"' do
-      it 'only lists clean repositories' do
+    context 'with the "clean" filter' do
+      it 'lists clean repositories' do
         expect(Repos.list('dir', 'clean')).to eq ['dir/a_clean_repo']
       end
     end
 
-    context 'when filter is "dirty"' do
-      it 'only lists dirty repositories' do
+    context 'with the "dirty" filter' do
+      it 'lists dirty repositories' do
         expect(Repos.list('dir', 'dirty')).to eq ['dir/a_dirty_repo']
       end
     end
