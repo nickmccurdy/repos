@@ -7,7 +7,7 @@ describe Repos::CLI do
     after(:context) { FileUtils.rm_r 'dir' }
 
     context 'by default' do
-      it 'lists all clean and dirty Git repositories in the current ' \
+      it 'lists all clean and dirty Git repositories in the given ' \
         'directory' do
         expect { Repos::CLI.start %w(list dir) }.to \
           output("clean dir/a_clean_repo\ndirty dir/a_dirty_repo\n")
@@ -16,7 +16,7 @@ describe Repos::CLI do
     end
 
     context 'with --recursive' do
-      it 'lists all Git repositories in the current directory and all ' \
+      it 'lists all Git repositories in the given directory and all ' \
       'subdirectories' do
         expect { Repos::CLI.start %w(list dir --recursive) }.to \
           output("clean dir/a_clean_repo\ndirty dir/a_dirty_repo\nclean dir/repo_inside/another_repo\n").to_stdout
@@ -28,7 +28,7 @@ describe Repos::CLI do
     end
 
     context 'with --names' do
-      it 'lists all clean and dirty Git repositories in the current ' \
+      it 'lists all clean and dirty Git repositories in the given ' \
         'directory' do
         expect { Repos::CLI.start %w(list dir --names) }.to \
           output("dir/a_clean_repo\ndir/a_dirty_repo\n").to_stdout

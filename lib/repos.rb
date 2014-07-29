@@ -4,7 +4,7 @@ require 'repos/cli'
 # The main module of repos, which includes its core functionality and more
 # modules for supporting functionality.
 module Repos
-  # Lists all Git repository in the current directory. When recursive is true,
+  # Lists all Git repositories in the given directory. When recursive is true,
   # it also lists Git repositories found in subdirectories.
   #
   # ==== Attributes

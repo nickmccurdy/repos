@@ -65,7 +65,7 @@ describe Repos do
     after(:context) { FileUtils.rm_r 'dir' }
 
     context 'by default' do
-      it 'lists all clean and dirty Git repositories in the current ' \
+      it 'lists all clean and dirty Git repositories in the given ' \
          'directory' do
         expect(Repos.list 'dir').to eq [
           'dir/a_clean_repo',
@@ -75,7 +75,7 @@ describe Repos do
     end
 
     context 'with recursion' do
-      it 'lists all Git repositories in the current directory and all ' \
+      it 'lists all Git repositories in the given directory and all ' \
          'subdirectories' do
         expect(Repos.list('dir', 'all', true)).to eq [
           'dir/a_clean_repo',
