@@ -1,10 +1,11 @@
 require 'repos/version'
 require 'repos/cli'
+require 'pathname'
 
 # The main module of repos, which includes its core functionality and more
 # modules for supporting functionality.
 module Repos
-  # Lists all Git repository in the current directory. When recursive is true,
+  # Lists all Git repositories in the given directory. When recursive is true,
   # it also lists Git repositories found in subdirectories.
   #
   # ==== Attributes
@@ -19,7 +20,7 @@ module Repos
   def self.list(directory, filter = 'all', recursive = false)
     pattern = recursive ? '**/.git' : '*/.git'
     repositories = Dir.glob("#{directory}/#{pattern}").sort.map do |git_directory|
-      Pathname.new(git_directory).dirname.to_s
+      Pathname.new(git_directory).parent.cleanpath.to_s
     end
     is_clean = proc { |repository| Repos.clean?(repository) }
 
@@ -38,9 +39,15 @@ module Repos
   #   can be absolute or relative.
   def self.clean?(repository)
     Dir.chdir(repository) do
-      empty_diff = system('git diff-index --quiet HEAD')
-      untracked = `git ls-files --other --directory --exclude-standard` != ''
-      empty_diff && !untracked
+      has_commits = `git show-ref --head HEAD` != ''
+      untracked = `git ls-files --other --directory --no-empty-directory --exclude-standard` != ''
+
+      if has_commits
+        empty_diff = system('git diff-index --quiet HEAD')
+        empty_diff && !untracked
+      else
+        !untracked
+      end
     end
   end
 end
