@@ -7,7 +7,7 @@ describe Repos::CLI do
     after(:context) { FileUtils.rm_r 'dir' }
 
     context 'by default' do
-      xit 'lists git repositories in the current directory' do
+      it 'lists git repositories in the current directory' do
         Dir.chdir 'dir' do
           expect { Repos::CLI.start %w(list) }.to \
             output("clean a_clean_repo\ndirty a_dirty_repo\n")

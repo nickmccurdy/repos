@@ -1,5 +1,6 @@
 require 'repos/version'
 require 'repos/cli'
+require 'pathname'
 
 # The main module of repos, which includes its core functionality and more
 # modules for supporting functionality.
@@ -19,7 +20,7 @@ module Repos
   def self.list(directory, filter = 'all', recursive = false)
     pattern = recursive ? '**/.git' : '*/.git'
     repositories = Dir.glob("#{directory}/#{pattern}").sort.map do |git_directory|
-      Pathname.new(git_directory).dirname.to_s
+      Pathname.new(git_directory).parent.cleanpath.to_s
     end
     is_clean = proc { |repository| Repos.clean?(repository) }
 
