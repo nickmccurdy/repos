@@ -2,7 +2,6 @@
 [![Gem Version](https://badge.fury.io/rb/repos.svg)](http://badge.fury.io/rb/repos)
 [![Build Status](https://travis-ci.org/nicolasmccurdy/repos.svg?branch=master)](https://travis-ci.org/nicolasmccurdy/repos)
 [![Code Climate](https://codeclimate.com/github/nicolasmccurdy/findrepos.png)](https://codeclimate.com/github/nicolasmccurdy/findrepos)
-[![Coverage Status](https://codeclimate.com/github/nicolasmccurdy/findrepos/coverage.png)](https://codeclimate.com/github/nicolasmccurdy/findrepos)
 
 A tool for finding git repositories locally.
 
